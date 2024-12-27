@@ -1,0 +1,260 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Documentação da api de reserva de pedido",
+    "description": "Criação de usuario e pedido com alterações de pedidos",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333",
+      "description": "Servidor preferencial para login de usuários, criação e atualização de pedidos."
+    }
+  ],
+  "paths": {
+    "/createuser": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "description": "Criação de um novo usuário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string",
+                    "description": "Nome do usuário",
+                    "example": "João"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email do usuário",
+                    "example": "joao@example.com"
+                  },
+                  "idade": {
+                    "type": "integer",
+                    "description": "Idade do usuário",
+                    "example": 30
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "ID do usuário",
+                      "example": 1
+                    },
+                    "nome": {
+                      "type": "string",
+                      "description": "Nome do usuário",
+                      "example": "João"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "Email do usuário",
+                      "example": "joao@example.com"
+                    },
+                    "idade": {
+                      "type": "integer",
+                      "description": "Idade do usuário",
+                      "example": 30
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/createpedidos": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "description": "Criação de um novo pedido",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Email do usuário que cria o pedido",
+                    "example": "joao@example.com"
+                  },
+                  "descricao": {
+                    "type": "string",
+                    "description": "Descrição do pedido",
+                    "example": "Pedido de arroz com chester"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pedido criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "ID do pedido",
+                      "example": 12312
+                    },
+                    "token": {
+                      "type": "string",
+                      "description": "Token de acesso para atualizar o pedido",
+                      "example": "jdsah17293tejdbbsdtgexd6253egdteqvxkszb"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/etc": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "description": "Obter dados do usuário criado. Esta rota só funcionará se você tiver um endereço de email para o usuário existente.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Email do usuário",
+                    "example": "joao@example.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dados do usuário retornados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nome": {
+                      "type": "string",
+                      "description": "Nome do usuário",
+                      "example": "João"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "Email do usuário",
+                      "example": "joao@example.com"
+                    },
+                    "idade": {
+                      "type": "integer",
+                      "description": "Idade do usuário",
+                      "example": 30
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/updatedata": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "description": "Atualização de um pedido existente",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Token dado ao usuário ao criar um novo pedido",
+              "example": "djaksdiuagdyissvoduasvdu3617wteasuhdv"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                      "type": "integer",
+                      "description": "ID do pedido",
+                      "example": 12312
+                    },
+                  "email": {
+                    "type": "string",
+                    "description": "Email do usuário que cria o pedido",
+                    "example": "joao@example.com"
+                  },
+                  "descricao": {
+                    "type": "string",
+                    "description": "Descrição do pedido",
+                    "example": "Pedido de arroz com chester"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pedido atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    
+                    "descricao": {
+                      "type": "string",
+                      "description": "Descrição do pedido",
+                      "example": "Pedido de arroz com chester"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model cadastro {
+  id            Int     @id @default(autoincrement())
+  descricao     String  @db.VarChar(100)
+  Cliente_email String  @db.VarChar(30)
+  cliente       cliente @relation(fields: [Cliente_email], references: [email], onDelete: NoAction, onUpdate: NoAction, map: "cadastro_ibfk_1")
+
+  @@index([Cliente_email], map: "Cliente_email")
+}
+
+model cliente {
+  email    String     @id @unique(map: "email") @db.VarChar(30)
+  nome     String     @db.VarChar(30)
+  idade    String     @db.VarChar(2)
+  cadastro cadastro[]
+}
